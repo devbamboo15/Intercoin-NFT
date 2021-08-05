@@ -7,12 +7,21 @@ import { create } from '../../contracts/nft-contract';
 const CreateNFT = () => {
 
     const [uri, setUri] = useState('');
+    /*
     const [token, setToken] = useState('0x022E292b44B5a146F2e8ee36Ff44D3dd863C915c');
     const [amount, setAmount] = useState(100);
     const [multiply, setMultiply] = useState(10000);
     const [accrue, setAccrue] = useState(3000);
     const [intervalSeconds, setIntervalSeconds] = useState(25200);
     const [reduceCommission, setReduceCommission] = useState(1000);
+    const [tokenCreated, setTokenCreated] = useState(false);
+    */
+    const [token, setToken] = useState('');
+    const [amount, setAmount] = useState(0);
+    const [multiply, setMultiply] = useState(0);
+    const [accrue, setAccrue] = useState(0);
+    const [intervalSeconds, setIntervalSeconds] = useState(0);
+    const [reduceCommission, setReduceCommission] = useState(0);
     const [tokenCreated, setTokenCreated] = useState(false);
     const [author, setAuthor] = useState('');
     const [tokenId, setTokenId] = useState('');

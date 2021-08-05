@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { abi } from '../../contracts/nft-contract.abi.json';
 import { NFT_CONTRACT_ADDRESS } from '../../constants/contract-address';
-import { offerToPayCommission } from '../../contracts/nft-contract';
+import { offerToPayCommission, getCommission } from '../../contracts/nft-contract';
 import { approveToken } from '../../contracts/erc20';
 
 const OfferToPayCommission = () => {
@@ -16,7 +16,9 @@ const OfferToPayCommission = () => {
         event.preventDefault();
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        await approveToken(COMMISSION_TOKEN_ADDRESS, signer, NFT_CONTRACT_ADDRESS[4], '1000');
+        const res = await getCommission(NFT_CONTRACT_ADDRESS[4], signer, tokenId);
+
+        await approveToken(res[0], signer, NFT_CONTRACT_ADDRESS[4], '1000');
         await offerToPayCommission(NFT_CONTRACT_ADDRESS[4], signer, tokenId, amount);
         // setCommission(res.toString());
     }
