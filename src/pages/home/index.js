@@ -33,16 +33,17 @@ const Home = () => {
         <div style={{flex: '1'}}>
           <DeployNFTContract></DeployNFTContract>
           <GetCommission></GetCommission>
-          <ClaimLostToken></ClaimLostToken>
+          <ReduceCommission></ReduceCommission>
           <RemoveFromSale></RemoveFromSale>
           <OfferToPayCommission></OfferToPayCommission>
+          <ClaimLostToken></ClaimLostToken>
         </div>
         <div style={{flex: '1'}}>
           <CreateNFT></CreateNFT>
-          <ReduceCommission></ReduceCommission>
           <ListForSale></ListForSale>
           <Buy></Buy>
           <TokensByAuthor></TokensByAuthor>
+          
         </div>
       </div>
     </div>

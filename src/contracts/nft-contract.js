@@ -1,11 +1,11 @@
 import { ethers, utils } from 'ethers';
-import { abi } from './nft-contract.abi.json';
+import abi from './nft-contract.abi.json';
 
 export async function create(address, signer, uri, commissionParams) {
     try {
         const contract = new ethers.Contract(address, abi, signer);
         console.log({ uri, commissionParams });
-        const res = await contract.create("https://google.com", ['0x022E292b44B5a146F2e8ee36Ff44D3dd863C915c', 100, 7 , 3600, 25200, 1000 ]);
+        const res = await contract.create(uri, commissionParams);
         return res;
     } catch (e) {
         console.log(e);
@@ -16,8 +16,9 @@ export async function create(address, signer, uri, commissionParams) {
 export async function buyWithCoins(address, signer, tokenId) {
     try {
         const contract = new ethers.Contract(address, abi, signer);
+        
         const overrides = {
-            value: utils.parseEther('0.01'),
+            value: utils.parseEther('0.1'),
         }
         const res = await contract.buy(tokenId, overrides);
         return res;
@@ -74,7 +75,7 @@ export async function claimLostToken(address, signer, erc20Address) {
 export async function listForSale(address, signer, tokenId, amount, consumeToken) {
     try {
         const contract = new ethers.Contract(address, abi, signer);
-        const res = await contract.listForSale(tokenId, amount, consumeToken);
+        const res = await contract.listForSale(tokenId, utils.parseEther(amount), consumeToken);
         return res;
     } catch (e) {
         console.log(e);

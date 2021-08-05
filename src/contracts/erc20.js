@@ -1,7 +1,7 @@
-import { ethers } from "ethers";
+import { ethers, utils } from "ethers";
 import BigNumber from "bignumber.js";
 import abi from './erc20.abi.json';
-import { isTransactionMined } from "../lib/helper";
+// import { isTransactionMined } from "../lib/helper";
 
 export async function getBalance(coinAddress, address, signer) {
   try {
@@ -36,9 +36,10 @@ export async function isTokenApproved(coinAddress, owner, contract, amount, sign
   }
 }
 
-export async function approveToken(coinAddress, contract, amount, signer) {
+export async function approveToken(coinAddress, signer, contract, amount) {
     const erc20 = new ethers.Contract(coinAddress, abi, signer);
-    const { hash } = await erc20.approve(contract, amount);
+    const { hash } = await erc20.approve(contract, utils.parseEther(amount));
+    /*
     try {
       while (true) {
         let mined = await isTransactionMined(hash);
@@ -48,5 +49,6 @@ export async function approveToken(coinAddress, contract, amount, signer) {
       console.error(e);
       return "";
     }
+    */
     return hash;
 }
