@@ -50,6 +50,17 @@ export async function getCommission(address, signer, tokenId) {
     }
 }
 
+export async function saleInfo(address, signer, tokenId) {
+    try {
+        const contract = new ethers.Contract(address, abi, signer);
+        const res = await contract.saleInfo(tokenId);
+        return res;
+    } catch (e) {
+        console.log(e);
+        return {};
+    }
+}
+
 export async function reduceCommission(address, signer, tokenId, percent) {
     try {
         const contract = new ethers.Contract(address, abi, signer);

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { abi } from '../../contracts/nft-contract.abi.json';
 import { NFT_CONTRACT_ADDRESS } from '../../constants/contract-address';
-import { buyWithCoins, buyWithTokens } from '../../contracts/nft-contract';
+import { buyWithCoins, buyWithTokens, saleInfo } from '../../contracts/nft-contract';
 import { approveToken } from '../../contracts/erc20';
 
 const Buy = () => {
@@ -24,7 +24,10 @@ const Buy = () => {
         event.preventDefault();
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        await approveToken(COMMISSION_TOKEN_ADDRESS, signer, NFT_CONTRACT_ADDRESS[4], '1000');
+        const info = await saleInfo(NFT_CONTRACT_ADDRESS[4], signer, tokenId);
+        console.log({info});
+        
+        await approveToken(info[0], signer, NFT_CONTRACT_ADDRESS[4], '1000');
         const res = await buyWithTokens(NFT_CONTRACT_ADDRESS[4], signer, tokenId);
         console.log({res});
     }
